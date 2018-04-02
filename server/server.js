@@ -14,6 +14,16 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
     console.log('Connected to server.');
 
+    socket.emit('newMessage', {
+        from: "mike@email.com",
+        text: "How are you?",
+        createdAt: 123
+    });
+
+    socket.on('createMessage', (message) => {
+        console.log('newMessage', message);
+    });
+
     socket.on('disconnect', ()=> {
         console.log('Disconnected from server.')
     });
@@ -22,5 +32,3 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
     console.log(`Started at port: ${port}`);
 });
-
-// module.exports = 
